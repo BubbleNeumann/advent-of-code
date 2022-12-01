@@ -3,32 +3,11 @@
 #include <algorithm>
 #include <numeric>
 
-const char* file_name = "data/day1.input";
-std::string str;
-
-int part1()
+int main()
 {
+    const char* file_name = "data/day1.input";
     std::ifstream from_file(file_name);
-    int max_sum = 0, cur_sum = 0;
-    while (getline(from_file, str))
-    {
-        if (str.empty()) 
-        {
-            max_sum = (cur_sum > max_sum) * cur_sum + (cur_sum <= max_sum) * max_sum; 
-            cur_sum = 0;
-            continue;
-        }
-
-        cur_sum += stoi(str);
-    }
-
-    from_file.close();
-    return max_sum;
-}
-
-int part2()
-{
-    std::ifstream from_file(file_name);
+    std::string str;
     int sums[] = {0, 0, 0};
     int cur_sum = 0;
     while (getline(from_file, str))
@@ -45,11 +24,6 @@ int part2()
     }
     
     from_file.close();
-    return std::accumulate(sums, sums + 3, cur_sum);
-} 
-
-int main()
-{
-    printf("%d %d\n", part1(), part2());
+    printf("%d %d\n", sums[2], std::accumulate(sums, sums + 3, cur_sum));
     return 0;
 }
