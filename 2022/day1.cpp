@@ -1,32 +1,55 @@
-#include <iostream>
 #include <fstream>
 #include <string>
-#include <vector>
+#include <algorithm>
+#include <numeric>
 
-std::vector<std::string> inp_to_vec()
-{
-    const char* file_name = "data/day1.input";
-    std::ifstream from_file(file_name);
-    std::string str;
-    std::vector<std::string> inp_vec;
-    while (getline(from_file, str)) inp_vec.push_back(str);
-    return inp_vec;
-}
+const char* file_name = "data/day1.input";
+std::string str;
 
 int part1()
 {
-    return 0;
+    std::ifstream from_file(file_name);
+    int max_sum = 0, cur_sum = 0;
+    while (getline(from_file, str))
+    {
+        if (str.empty()) 
+        {
+            max_sum = (cur_sum > max_sum) * cur_sum + (cur_sum <= max_sum) * max_sum; 
+            cur_sum = 0;
+            continue;
+        }
+
+        cur_sum += stoi(str);
+    }
+
+    from_file.close();
+    return max_sum;
 }
 
 int part2()
 {
-    return 0;
+    std::ifstream from_file(file_name);
+    int sums[] = {0, 0, 0};
+    int cur_sum = 0;
+    while (getline(from_file, str))
+    {
+        if (str.empty()) 
+        {
+            if (cur_sum > sums[0]) sums[0] = cur_sum; // replace the smallest one
+            std::sort(std::begin(sums), std::end(sums));
+            cur_sum = 0;
+            continue;
+        }
+
+        cur_sum += stoi(str);
+    }
+    
+    from_file.close();
+    return std::accumulate(sums, sums + 3, cur_sum);
 } 
 
 int main()
 {
-    std::vector<std::string> vec = inp_to_vec();
-    for (auto i : vec) std::cout << i << "\n";
-    // std::cout << part1() << " " << part2() <<"\n";
+    printf("%d %d\n", part1(), part2());
     return 0;
 }
