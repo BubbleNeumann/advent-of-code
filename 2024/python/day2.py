@@ -9,7 +9,7 @@ def part1():
 			i = 1
 			inc = (int(arr[1]) - int(arr[0])) > 0
 			while i < len(arr):
-				diff = int(arr[i]) - int(arr[i-1])
+				diff = int(arr[i]) - int(arr[i - 1])
 				if diff and (diff > 0) == inc and (-4 < diff < 4):
 					i += 1
 					continue
@@ -17,6 +17,7 @@ def part1():
 			else:
 				ans += 1
 	print(ans)
+
 
 def part2():
 	ans = 0

@@ -22,4 +22,3 @@ def part2():
 
 
 part2()
-
