@@ -1,4 +1,4 @@
-#![allow(dead_code)]
+// #![allow(dead_code)]
 // use itertools::Itertools;
 
 fn one_per_line() -> Vec<i32> {
@@ -21,7 +21,7 @@ fn count_increasing_seq(vec: Vec<i32>, seq_len: usize) -> i32 {
 
     for i in 0..vec.len() - seq_len {
         cur_sum = 0;
-        for j in 0..seq_len {
+        for j in 1..seq_len+1 {
             cur_sum += vec[i + j];
         }
         res += (cur_sum > prev_sum) as i32;
