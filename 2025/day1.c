@@ -14,10 +14,10 @@ void part1(const char* filename) // solved
 
     while ((c = fgetc(file)) != EOF)
     {
-        dir = c == 'L' ? 0 : 1; // L or R
+        dir = c == 'L' ? -1 : 1; // L or R
         r = 0;
         while ((c=fgetc(file)) - 13) r = r * 10 + c - '0';
-        dial_ptr += dir ? r : -r;
+        dial_ptr += dir * r;
         cnt += dial_ptr % 100 == 0;
         fgetc(file); // read newline
     }
@@ -37,11 +37,7 @@ void part2(const char* filename) // solved
         dir = c == 'L' ? -1 : 1; // L or R
         r = 0;
         while ((c=fgetc(file)) - 13) r = r * 10 + c - '0';
-        for (int i = 0; i < abs(r); ++i)
-        {
-            dial_ptr += dir;
-            cnt += dial_ptr % 100 == 0;
-        }
+        for (int i = 0; i < abs(r); ++i, dial_ptr += dir, cnt += dial_ptr % 100 == 0) {}
         fgetc(file); // read newline
     }
     fclose(file);
@@ -51,8 +47,8 @@ void part2(const char* filename) // solved
 int main()
 {
     // part1("input/day1-test.txt");
-    // part1("input/day1.txt");
+    part1("input/day1.txt");
     // part2("input/day1-test.txt");
-    part2("input/day1.txt");
+    // part2("input/day1.txt");
     return 0;
 }
